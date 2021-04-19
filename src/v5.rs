@@ -1,5 +1,5 @@
 use crate::prelude::*;
-use sha1;
+use sha1::Digest;
 
 impl Uuid {
     /// Creates a UUID using a name from a namespace, based on the SHA-1 hash.
@@ -24,7 +24,7 @@ impl Uuid {
         hash.update(namespace.as_bytes());
         hash.update(name);
 
-        let buffer = hash.digest().bytes();
+        let buffer = hash.finalize();
 
         let mut bytes = crate::Bytes::default();
         bytes.copy_from_slice(&buffer[..16]);
