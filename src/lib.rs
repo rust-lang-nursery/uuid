@@ -164,6 +164,8 @@ mod v4;
 mod v5;
 #[cfg(all(windows, feature = "winapi"))]
 mod winapi_support;
+#[cfg(feature = "zerocopy")]
+use zerocopy::{AsBytes, FromBytes, Unaligned};
 
 use crate::std::{convert, fmt, str};
 
@@ -226,7 +228,15 @@ pub enum Variant {
 }
 
 /// A Universally Unique Identifier (UUID).
+#[cfg(not(feature = "zerocopy"))]
 #[derive(Clone, Copy, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[repr(transparent)]
+pub struct Uuid(Bytes);
+
+/// A Universally Unique Identifier (UUID).
+#[cfg(feature = "zerocopy")]
+#[derive(Clone, Copy, Eq, Hash, Ord, PartialEq, PartialOrd,
+    AsBytes, FromBytes, Unaligned)]
 #[repr(transparent)]
 pub struct Uuid(Bytes);
 

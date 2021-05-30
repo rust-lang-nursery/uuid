@@ -33,7 +33,7 @@ repository = "https://github.com/uuid-rs/uuid"
 version = "0.8.1" # remember to update html_root_url in lib.rs
 
 [package.metadata.docs.rs]
-features = [ "guid", "serde", "slog", "v1", "v3", "v4", "v5" ]
+features = [ "guid", "serde", "slog", "v1", "v3", "v4", "v5", "zerocopy" ]
 default-target = "x86_64-pc-windows-msvc"
 
 [package.metadata.playground]
@@ -76,6 +76,11 @@ version = "0.6"
 [dependencies.slog]
 optional = true
 version = "2"
+
+[dependencies.zerocopy]
+default-features = false
+optional = true
+version = "0.3.0"
 
 [dev-dependencies.bincode]
 version = "1.0"
